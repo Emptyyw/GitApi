@@ -12,10 +12,8 @@ const RenderPageNumbers: React.FC<PaginationProps> = ({
   handlePageChange,
 }) => {
   const pageNumbers = [];
-  const maxDisplayedPages = 5; // Максимальное количество отображаемых страниц
-
+  const maxDisplayedPages = 5;
   if (totalPages <= maxDisplayedPages) {
-    // Отображаем все страницы, если их не  много
     for (let i = 1; i <= totalPages; i++) {
       pageNumbers.push(
         <span
@@ -28,11 +26,9 @@ const RenderPageNumbers: React.FC<PaginationProps> = ({
       );
     }
   } else {
-    //  сокращаем отображение с точками
     const leftOffset = Math.floor(maxDisplayedPages / 2);
     const rightOffset = Math.ceil(maxDisplayedPages / 2) - 1;
 
-    // Отображаем первую страницу
     pageNumbers.push(
       <span
         key={1}
@@ -44,7 +40,6 @@ const RenderPageNumbers: React.FC<PaginationProps> = ({
     );
 
     if (currentPage - leftOffset > 2) {
-      // Если currentPage находится  далеко от начала, добавляем "..." в начало
       pageNumbers.push(
         <span className="points" key="ellipsis-start">
           ...
@@ -52,7 +47,6 @@ const RenderPageNumbers: React.FC<PaginationProps> = ({
       );
     }
 
-    // Отображаем страницы вокруг текущей страницы
     for (
       let i = Math.max(2, currentPage - leftOffset);
       i <= Math.min(totalPages - 1, currentPage + rightOffset);
@@ -70,11 +64,9 @@ const RenderPageNumbers: React.FC<PaginationProps> = ({
     }
 
     if (currentPage + rightOffset < totalPages - 1) {
-      // Если currentPage находится достаточно далеко от конца добавляем "..." в конце
       pageNumbers.push(<span key="ellipsis-end">...</span>);
     }
 
-    // Отображаем последнюю страницу
     pageNumbers.push(
       <span
         key={totalPages}

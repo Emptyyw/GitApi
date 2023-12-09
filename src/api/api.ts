@@ -15,21 +15,15 @@ export interface GitHubRepository {
   id: number;
 }
 
-// создаем экземпляр  с базовым URL он позволяет делать запросы к апи например baseURL/users
 const axiosInstance = axios.create({
   baseURL: 'https://api.github.com',
 });
-///getUserData делает get запрос для получения данных
-//userName в качестве параметра, формирует юрл и возвращает промис
 export const getUserData = async (
   userName: string,
 ): Promise<AxiosResponse<GitHubUser>> => {
   return axiosInstance.get(`/users/${userName}`);
 };
 
-//getUserRepositories делает get запрос для получения списка
-//принимает userName, а также параметры page и perPage
-//возвращает промис, который будет разрешен объектом AxiosResponse<GitHubRepository[]>
 export const getUserRepositories = async (
   userName: string,
   page: number = 1,

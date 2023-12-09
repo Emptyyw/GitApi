@@ -187,3 +187,15 @@ body {
 	display: flex;
 	vertical-align: bottom;
 }
+
+.userName {
+	font-size: 20px;
+	font-weight: 600;
+	margin-bottom: 20px;
+}
+
+.userLogin {
+	color: #0064EB;
+	font-size: 15px;
+	font-weight: 400;
+}

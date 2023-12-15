@@ -12,11 +12,11 @@ function formatNumber(number: number): string {
 
   if (absNumber >= 1000000) {
     return `${(absNumber / 1000000).toFixed(1)}m`;
-  } else if (absNumber >= 1000) {
-    return `${(absNumber / 1000).toFixed(1)}k`;
-  } else {
-    return `${absNumber}`;
   }
+  if (absNumber >= 1000) {
+    return `${(absNumber / 1000).toFixed(1)}k`;
+  }
+  return `${absNumber}`;
 }
 
 const Followers: React.FC<FollowersProps> = ({ followers, following }) => {

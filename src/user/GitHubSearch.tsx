@@ -10,11 +10,12 @@ import useDebounce from '../hooks/useDebounce';
 
 const GitHubSearch: React.FC = () => {
   const [userName, setUserName] = useState<string>('');
-  const [debouncedUserName] = useDebounce<string>(userName, 0);
+  const [inputValue, setInputValue] = useState<string>('');
+  const debouncedInputValue = useDebounce(inputValue, 500);
   const [currentPage, setCurrentPage] = useState<number>(1);
 
   const { user, setUser, repositories, totalPages, isSearching } = useGitHubSearch(
-    debouncedUserName,
+    debouncedInputValue,
     currentPage,
   );
 
@@ -22,7 +23,7 @@ const GitHubSearch: React.FC = () => {
     event.preventDefault();
 
     try {
-      const response = await getUserData(debouncedUserName);
+      const response = await getUserData(debouncedInputValue);
       setUser(response.data);
     } catch (error) {
       console.error('Error fetching GitHub data:', error);
@@ -36,6 +37,7 @@ const GitHubSearch: React.FC = () => {
 
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setUserName(event.target.value);
+    setInputValue(event.target.value);
   };
   const pagination = renderPageNumbers({
     currentPage,
@@ -47,7 +49,7 @@ const GitHubSearch: React.FC = () => {
     <div>
       <form onSubmit={handleSearch}>
         <nav className="nav">
-          <img className="imgGit" src={logo} alt="логотип" />
+          <img className="img-git" src={logo} alt="логотип" />
           <div className="input-group">
             <input
               className="search"
@@ -76,8 +78,8 @@ const GitHubSearch: React.FC = () => {
             <div className="user">
               <img className="avatar" src={user.avatar_url} alt="User Avatar" />
 
-              <p className="userName">{user.name}</p>
-              <p className="userLogin">
+              <p className="user-name">{user.name}</p>
+              <p className="user-login">
                 {user.name}
                 {user.login}
               </p>
@@ -93,13 +95,13 @@ const GitHubSearch: React.FC = () => {
                     <li className="repo-item" key={repo.id}>
                       <a
                         href={repo.html_url}
-                        className="repo-item__link"
+                        className="repo-item-link"
                         target="_blank"
                         rel="noopener noreferrer"
                       >
                         {repo.name}
                       </a>
-                      <p className="repo-item__description">{repo.description}</p>
+                      <p className="repo-item-description">{repo.description}</p>
                     </li>
                   ))}
                 </ul>

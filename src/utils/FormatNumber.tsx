@@ -10,13 +10,13 @@ interface FollowersProps {
 function formatNumber(number: number): string {
   const absNumber = Math.abs(number);
 
-  if (absNumber >= 1e6) {
-    return `${(absNumber / 1e6).toFixed(1)}m`;
-  } else if (absNumber >= 1e3) {
-    return `${(absNumber / 1e3).toFixed(1)}k`;
-  } else {
-    return `${absNumber}`;
+  if (absNumber >= 1000000) {
+    return `${(absNumber / 1000000).toFixed(1)}m`;
   }
+  if (absNumber >= 1000) {
+    return `${(absNumber / 1000).toFixed(1)}k`;
+  }
+  return `${absNumber}`;
 }
 
 const Followers: React.FC<FollowersProps> = ({ followers, following }) => {
